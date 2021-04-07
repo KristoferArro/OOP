@@ -10,6 +10,10 @@ public abstract class Klubi {
         return nimi;
     }
 
+    public List<Mängija> getMängijad() {
+        return mängijad;
+    }
+
     public String getAsukoht() {
         return asukoht;
     }

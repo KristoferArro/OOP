@@ -75,6 +75,8 @@ public class Peaklass {
         // Jagame mängijad klubidesse
         loeKlubisse(mängijad, premiumLiiga.getKlubid());
 
+        System.out.println(tammeka.getMängijad());
+        System.out.println(flora.getMängijad());
 
     }
 }

@@ -41,5 +41,13 @@ public class Mängija {
         return aasta - sünniaasta; //Leiab isiku vanuse
     }
 
-
+    @Override
+    public String toString() {
+        return "Nimi:" + nimi +
+                ", vanus: " + vanus +
+                ", klubi: " + klubi +
+                ", särgi nr: " + särk +
+                ", väravaid: " + väravad +
+                ", keskmiselt joostud distants mängus (km): " + jooks;
+    }
 }
