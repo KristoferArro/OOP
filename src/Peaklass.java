@@ -32,7 +32,7 @@ public class Peaklass {
     // Võrdleme iga mängija klubi liigas olevate klubidega, seejärel paneme mängija õige klubi alla
     public static void loeKlubisse(List<Mängija> mängijad, List<Klubi> klubid) {
         for (Mängija mängija : mängijad) {
-            String mängijaKlubi = mängija.getNimi().toLowerCase(Locale.ROOT);
+            String mängijaKlubi = mängija.getKlubi().toLowerCase(Locale.ROOT);
             for (Klubi klubi : klubid) {
                 String klubiNimi = klubi.getNimi().toLowerCase(Locale.ROOT);
                 if (mängijaKlubi.equals(klubiNimi))
@@ -75,6 +75,6 @@ public class Peaklass {
         // Jagame mängijad klubidesse
         loeKlubisse(mängijad, premiumLiiga.getKlubid());
 
-        
+
     }
 }

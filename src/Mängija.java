@@ -17,8 +17,8 @@ public class Mängija {
         this.jooks = setJooks(positsioon);
     }
 
-    public String getNimi() {
-        return nimi;
+    public String getKlubi() {
+        return klubi;
     }
 
     public double setJooks(String positsioon){
