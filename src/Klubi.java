@@ -1,11 +1,32 @@
+import java.util.ArrayList;
 import java.util.List;
 
-public class Klubi {
+public abstract class Klubi {
     private final String nimi;
     private List<Mängija> mängijad;
+    private final String asukoht;
 
-    public Klubi(String nimi, List<Mängija> mängijad) {
+    public String getNimi() {
+        return nimi;
+    }
+
+    public String getAsukoht() {
+        return asukoht;
+    }
+
+    public Klubi(String nimi, String asukoht) {
         this.nimi = nimi;
-        this.mängijad = mängijad;
+        this.mängijad = new ArrayList<>();
+        this.asukoht = asukoht;
+    }
+
+    public void lisaMängija(Mängija mängija) {
+        mängijad.add(mängija);
+    }
+
+    @Override
+    public String toString() {
+        return "Klubi nimi: " + nimi +
+                ", Mängijaid: " + mängijad.size();
     }
 }

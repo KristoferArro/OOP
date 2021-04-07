@@ -17,6 +17,10 @@ public class Mängija {
         this.jooks = setJooks(positsioon);
     }
 
+    public String getNimi() {
+        return nimi;
+    }
+
     public double setJooks(String positsioon){
         switch(positsioon){
             case "ründaja":

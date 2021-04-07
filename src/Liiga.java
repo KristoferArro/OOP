@@ -4,11 +4,17 @@ import java.util.List;
 public class Liiga {
     private List<Klubi> klubid;
     private final String nimi;
-    private final String asukoht;
 
-    public Liiga(List<Klubi> klubid, String nimi, String asukoht) {
-        this.klubid = klubid;
+    public Liiga(String nimi) {
         this.nimi = nimi;
-        this.asukoht = asukoht;
+        this.klubid = new ArrayList<>();
+    }
+
+    public List<Klubi> getKlubid() {
+        return klubid;
+    }
+
+    public void lisaKlubi(Klubi klubi) {
+        klubid.add(klubi);
     }
 }
