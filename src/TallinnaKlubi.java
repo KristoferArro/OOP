@@ -1,4 +1,4 @@
-public class TallinnaKlubi extends Klubi{
+public class TallinnaKlubi extends Klubi {
     private String linnaosa;
 
     public TallinnaKlubi(String nimi, String asukoht, String linnaosa) {

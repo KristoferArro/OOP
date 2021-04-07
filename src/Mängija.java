@@ -8,7 +8,7 @@ public class Mängija {
     private String klubi;
     private int vanus;
 
-    public Mängija(String nimi,int sünniaasta, String positsioon, String klubi, int väravad, int särk) {
+    public Mängija(String nimi, int sünniaasta, String positsioon, String klubi, int väravad, int särk) {
         this.nimi = nimi;
         this.väravad = väravad;
         this.särk = särk;
@@ -21,27 +21,25 @@ public class Mängija {
         return klubi;
     }
 
-    public double setJooks(String positsioon){
-        switch(positsioon){
+    public double setJooks(String positsioon) {
+        switch (positsioon) {
             case "ründaja":
-                return 7.0+(Math.random()*2.0); //Keskmine distants 7km - 9km
+                return 7.0 + (Math.random() * 2.0); //Keskmine distants 7km - 9km
             case "poolkaitsja":
-                return 8.0+(Math.random()*4.0); //Keskmine distants 8km - 12km
+                return 8.0 + (Math.random() * 4.0); //Keskmine distants 8km - 12km
             case "kaitsja":
-                return 5.0+(Math.random()*3.0);//Keskmine distants 5km - 8km
+                return 5.0 + (Math.random() * 3.0);//Keskmine distants 5km - 8km
             case "väravavaht":
-                return 1.0+(Math.random());//Keskmine distants 1km - 2km
+                return 1.0 + (Math.random());//Keskmine distants 1km - 2km
             default:
-                return 6.0+(Math.random()*4.0); //Keskmine distants 6km - 10km
+                return 6.0 + (Math.random() * 4.0); //Keskmine distants 6km - 10km
         }
     }
 
-    public int setVanus(int sünniaasta){
+    public int setVanus(int sünniaasta) {
         int aasta = Year.now().getValue();
-        return aasta-sünniaasta; //Leiab isiku vanuse
+        return aasta - sünniaasta; //Leiab isiku vanuse
     }
-
-
 
 
 }

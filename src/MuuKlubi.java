@@ -1,4 +1,4 @@
-public class MuuKlubi extends Klubi{
+public class MuuKlubi extends Klubi {
     public MuuKlubi(String nimi, String asukoht) {
         super(nimi, asukoht);
     }

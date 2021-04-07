@@ -1,1 +1,29 @@
 Mihkel Järviste, 2000, poolkaitsja, JK Tammeka, 2, 10
+Kevin Aloe, 1995, kaitsja, JK Tammeka, 0, 5
+Kevin Anderson, 1993, kaitsja, JK Tammeka, 0, 41
+Igor Dudarev, 1993, kaitsja, JK Tammeka, 1, 23
+Carl Kaiser Kiidjärv, 2001, väravavaht, JK Tammeka, 0, 77
+Tristan Koskor, 1995, ründaja, 12, 19
+Reio Laabus, 1990, poolkaitsja, 0, 13
+Mikhail Slashchev, 1997, kaitsja, 0, 15
+Sten Reinkort, 1998, ründaja, 2, 10
+Patrick Genro Veelma, 2002, ründaja, 4, 29
+Karl Johan Pechter, 1996, väravavaht, 0, 1
+Andre Paju, 1995, poolkaitsja, 9, 18
+Daaniel Maanas, 2000, kaitsja, 1, 8
+Artur Uljanov, 1999, ründaja, 0, 11
+Tauno Tekko, 1994, poolkaitsja, 2, 6
+Rauno Sappinen, 1996, ründaja, 26, 11
+Vlasiy Sinyavskiy, ründaja, 5, 99
+Rauno Alliku, 1990, ründaja, 4, 9
+Märten Kuusk, 1996, kaitsja, 6, 2
+Michael Lilander, 1997, kaitsja, 1, 27
+Vladislav Kreida, 1999, poolkaitsja, 3, 5
+Konstantin Vassiljev, 1984, poolkaitsja, 10, 14
+Henrik Pürg, 1996, kaitsja, 0, 24
+Martin Miller, 1997, poolkaitsja, 5, 10
+Markus Poom, 1999, poolkaitsja, 2, 35
+Markus Soomets, 2000, poolkaitsja, 0, 28
+Ingmar Krister Paplavskis, 1999, väravavaht, 0, 1
+Matvei Igonen, 1996, väravavaht, 0, 32
+Frank Liivak, 1996, ründaja, 3, 7

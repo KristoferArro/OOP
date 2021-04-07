@@ -15,14 +15,14 @@ public class Peaklass {
     // Klubide isendid (sisaldab endas listi mängijate isenditest, kes seal klubis mängivad)
     // Liiga isend (sisaldab listi klubide isenditest)
 
-    public static List<Mängija> loeFail(String failinimi) throws Exception{ //Loeb failist mängijate andmed
+    public static List<Mängija> loeFail(String failinimi) throws Exception { //Loeb failist mängijate andmed
         List<Mängija> mängijad = new ArrayList<>();
         File objekt = new File(failinimi);
         Scanner lugeja = new Scanner(objekt);
-        while(lugeja.hasNextLine()){
+        while (lugeja.hasNextLine()) {
             String rida = lugeja.nextLine();
             String[] andmed = rida.split(", ");
-            Mängija mängija = new Mängija(andmed[0],Integer.parseInt(andmed[1]),andmed[2],andmed[3],Integer.parseInt(andmed[4]),Integer.parseInt(andmed[5])); //Loob uue mängija
+            Mängija mängija = new Mängija(andmed[0], Integer.parseInt(andmed[1]), andmed[2], andmed[3], Integer.parseInt(andmed[4]), Integer.parseInt(andmed[5])); //Loob uue mängija
             mängijad.add(mängija); //Lisab mängija mängijate järjendisse
         }
         return mängijad;
@@ -46,16 +46,16 @@ public class Peaklass {
         Liiga premiumLiiga = new Liiga("Premium liiga");
 
         // Klubide isendid
-        Klubi flora = new TallinnaKlubi("FC Flora", "Tallinn", "");
+        Klubi flora = new TallinnaKlubi("FC Flora", "Tallinn", "Kristiine");
         Klubi paide = new MuuKlubi("Paide linnameeskond", "Paide");
-        Klubi levadia = new TallinnaKlubi("FCI Levadia", "Tallinn", "");
+        Klubi levadia = new TallinnaKlubi("FCI Levadia", "Tallinn", "Pirita");
         Klubi kalju = new TallinnaKlubi("Nõmme Kalju FC", "Tallinn", "Nõmme");
         Klubi tammeka = new MuuKlubi("JK Tammeka", "Tartu");
         Klubi tulevik = new MuuKlubi("Viljandi JK Tulevik", "Viljandi");
-        Klubi legion = new TallinnaKlubi("JK Legion", "Tallinn", "");
+        Klubi legion = new TallinnaKlubi("JK Legion", "Tallinn", "Lasnamäe");
         Klubi trans = new MuuKlubi("JK Narva Trans", "Narva");
         Klubi kure = new MuuKlubi("FC Kuressaare", "Kuressaare");
-        Klubi kalev = new TallinnaKlubi("JK Tallinna Kalev", "Tallinn", "");
+        Klubi kalev = new TallinnaKlubi("JK Tallinna Kalev", "Tallinn", "Kesklinn");
 
         // Loeme mängijad failist
         List<Mängija> mängijad = loeFail("mängijad.txt");
