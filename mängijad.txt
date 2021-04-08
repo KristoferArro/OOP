@@ -63,7 +63,7 @@ Rasmus Saar, 2000, kaitsja, FC Kuressaare, 6, 87
 Pavel Londak, 1980, väravavaht, JK Legion, 0, 39
 Andrei Sidorenkov, 1984, kaitsja, JK Legion, 0, 3
 Artjom Artjunin, 1990, kaitsja, JK Legion, 2, 5
-Marek Šatov, 19930, poolkaitsja, JK Legion, 5, 9
+Marek Šatov, 1993, poolkaitsja, JK Legion, 5, 9
 Nikita Andreev, 1988, ründaja, JK Legion, 10, 11
 Maksim Gussev, 1994, poolkaitsja, JK Legion, 2, 29
 Dmirti Kovtunovitš, 1991, kaitsja, JK Legion, 3, 27
@@ -103,13 +103,13 @@ Viktor Plotnikov, 1989, ründaja, JK Narva Trans, 0, 21
 Aleksei Matrossov, 1991, väravavaht, JK Narva Trans, 0, 88
 Ofosu Appiah, 1989, kaitsja, JK Narva Trans, 1, 12
 Romand Nesterovski, 1989, kaitsja, JK Narva Trans, 1, 5
-Nikita Komissarov, 2000, ründaja, Viljandi JK Tulevik, , 10
+Nikita Komissarov, 2000, ründaja, Viljandi JK Tulevik, 2, 10
 Karl-Romet Nõmm, 1998, väravavaht, Viljandi JK Tulevik, 0, 1
 Sander Kapper, 1994, ründaja, Viljandi JK Tulevik, 3, 17
 Pavel Marin, 1995, ründaja, Viljandi JK Tulevik, 11, 79
 Gerdo Juhkam, 1994, kaitsja, Viljandi JK Tulevik, 0, 4
 Kaimar Saag, 1988, ründaja, Viljandi JK Tulevik, 3, 11
-Herol Riiberg, 1997, ründaja Viljandi JK Tulevik, 4, 8
+Herol Riiberg, 1997, ründaja, Viljandi JK Tulevik, 4, 8
 Kristjan Kask, 1999, poolkaitsja, Viljandi JK Tulevik, 4, 9
 Tanel Lang, 1995, poolkaitsja, Viljandi JK Tulevik, 1, 15
 Marco Budic, 2000, kaitsja, Viljandi JK Tulevik, 0, 5
