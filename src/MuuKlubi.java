@@ -5,6 +5,6 @@ public class MuuKlubi extends Klubi {
 
     @Override
     public String toString() {
-        return super.toString() + ", Asukoht: " + getAsukoht();
+        return super.toString() + ", Asukoht: " + getAsukoht() + ";";
     }
 }

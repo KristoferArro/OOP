@@ -8,6 +8,6 @@ public class TallinnaKlubi extends Klubi {
 
     @Override
     public String toString() {
-        return super.toString() + ", Linnaosa: " + linnaosa;
+        return super.toString() + ", Linnaosa: " + linnaosa + ";";
     }
 }

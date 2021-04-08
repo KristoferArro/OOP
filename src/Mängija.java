@@ -1,6 +1,6 @@
 import java.time.Year;
 
-public class Mängija {
+public class Mängija{
     private String nimi;
     private int väravad;
     private double jooks;

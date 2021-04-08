@@ -45,8 +45,6 @@ public class Peaklass {
     }
 
     public static void teeLiigadKlubid() throws Exception {
-
-
         // Klubide isendid
         Klubi flora = new TallinnaKlubi("FC Flora", "Tallinn", "Kristiine");
         Klubi paide = new MuuKlubi("Paide linnameeskond", "Paide");
@@ -85,28 +83,34 @@ public class Peaklass {
     public static void main(String[] args) throws Exception {
         //Peaklassis toimud kasutajaga suhtlus
         teeLiigadKlubid();
-        Scanner küsimus1 = new Scanner(System.in);
-        System.out.println("Mille kohta infot soovite? (Liiga/Klubi/Mängija) Kui soovite programmi töö igal hetkel lõpetada, kirjutage stopp ");
-        String vastus1 = küsimus1.nextLine().toLowerCase();
-        switch (vastus1) {
-            case "liiga":
-                liigaKüsimus();
-                break;
+        int i = 1;
+        while (i == 1) {
+            Scanner küsimus1 = new Scanner(System.in);
+            System.out.println("Mille kohta infot soovite? (Liiga/Klubi/Mängija) Kui soovite programmi töö igal hetkel lõpetada, kirjutage stopp ");
+            String vastus1 = küsimus1.nextLine().toLowerCase();
+            switch (vastus1) {
+                case "liiga":
+                    liigaKüsimus();
+                    break;
                 //Esitab liiga kohta küsimused
-            case "klubi":
-                klubiKüsimus();
-                break;
+                case "klubi":
+                    klubiKüsimus();
+                    break;
                 //Esitab klubi kohta küsimuse
-            case "mängija":
-                mängijaKüsimus();
-                break;
+                case "mängija":
+                    mängijaKüsimus();
+                    break;
                 //Esitab mängija kohta küsimuse
-            case "stop":
-                break; //Lõpetab töö
-            case "stopp":
-                break; //lõpetab töö
-            default:
-                break;
+                case "stop":
+                    i = 0;
+                    break; //Lõpetab töö
+                case "stopp":
+                    i = 0;
+                    break; //lõpetab töö
+                default:
+                    System.out.println("Vigane sisend! Proovi uuesti!");
+                    break;
+            }
         }
     }
 
@@ -118,35 +122,36 @@ public class Peaklass {
         Scanner küsimus3 = new Scanner(System.in);
         System.out.println("Sisesta mängija täisnimi, kelle kohta infot soovid (nt: Mihkel Järviste): ");
         String mängijanimi = küsimus3.nextLine().toLowerCase();
-        Mängija mängija = null;
         for (Mängija x : mängijad) { //Võrdleb etteantud mängijanime meie mängijate listiga
-            if(x.getNimi().toLowerCase().strip().equals(mängijanimi)) mängija = x;
-        }
-
-        switch (vastus2){
-            case "klubi":
-                System.out.println(mängija.getKlubi());
-                break;
-            case "jooks":
-                System.out.println(mängija.getJooks());
-                break;
-            case "särginumber":
-                System.out.println(mängija.getSärk());
-                break;
-            case "vanus":
-                System.out.println(mängija.getVanus());
-                break;
-            case "väravad":
-                System.out.println(mängija.getVäravad());
-                break;
-            case "stop":
-                break;
-            case "stopp":
-                break;
-            default:
-                break;
+            if (x.getNimi().toLowerCase().equals(mängijanimi)) {
+                switch (vastus2) {
+                    case "klubi":
+                        System.out.println(x.getKlubi());
+                        break;
+                    case "jooks":
+                        System.out.println(x.getJooks());
+                        break;
+                    case "särginumber":
+                        System.out.println(x.getSärk());
+                        break;
+                    case "vanus":
+                        System.out.println(x.getVanus());
+                        break;
+                    case "väravad":
+                        System.out.println(x.getVäravad());
+                        break;
+                    case "stop":
+                        break;
+                    case "stopp":
+                        break;
+                    default:
+                        System.out.println("Vigane sisend!");
+                        break;
+                }
+            }
         }
     }
+
     //Abimeetod, käivitatakse, kui kasutaja soovid infot klubide kohta
     private static void klubiKüsimus() {
         Scanner küsimus2 = new Scanner(System.in);
@@ -155,52 +160,54 @@ public class Peaklass {
         Scanner küsimus3 = new Scanner(System.in);
         System.out.println("Sisesta klubi nimi, mille kohta infot soovid (flora, paide, levadia, tammeka, kalju, tulevik, legion, trans, kure, kalev) ");
         String klubinimi = küsimus3.nextLine().toLowerCase();
-        Klubi klubi = null;
         for (Klubi x : premiumLiiga.getKlubid()) { //Võrdleb etteantud nime klubidega ning väärtustab selle
-            if (x.getNimi().strip().toLowerCase(Locale.ROOT).equals(klubinimi)) klubi = x;
-        }
-
-        switch (vastus2) {
-            case "asukoht":
-                System.out.println(klubi.getAsukoht());
-                break;
-            case "mängijad":
-                System.out.println(klubi.getMängijad());
-                break;
-            case "mängijate arv":
-                System.out.println(klubi.getArv());
-                break;
-            case "stop":
-                break;
-            case "stopp":
-                break;
-            default:
-                break;
-        }
-    }
-    //Abimeetod, käivitatakse, kui kasutaja soovid infot liiga kohta
-    private static void liigaKüsimus() {
-        Scanner küsimus2 = new Scanner(System.in);
-        System.out.println("Mida liiga kohta teada soovite? Väravalööjad/Jooksjad/Meeskonnad ");
-        String vastus2 = küsimus2.nextLine().toLowerCase();
-        switch (vastus2) {
-            case "väravalööjad":
-                premiumLiiga.väravalööjad();
-                break;
-            case "jooksjad":
-                premiumLiiga.jooksjad();
-                break;
-            case "meeskonnad":
-                System.out.println(premiumLiiga.getKlubid());
-                break;
-            case "stop":
-                break; //Lõpetab töö
-            case "stopp":
-                break; //lõpetab töö
-            default:
-                break;
+            if (x.getNimi().toLowerCase(Locale.ROOT).equals(klubinimi)) {
+                switch (vastus2) {
+                    case "asukoht":
+                        System.out.println(x.getAsukoht());
+                        break;
+                    case "mängijad":
+                        System.out.println(x.getMängijad());
+                        break;
+                    case "mängijate arv":
+                        System.out.println(x.getMängijad().size());
+                        break;
+                    case "stop":
+                        break;
+                    case "stopp":
+                        break;
+                    default:
+                        System.out.println("Vigane sisend! Proovi uuesti!");
+                }
+            }
         }
     }
 
+        //Abimeetod, käivitatakse, kui kasutaja soovib infot liiga kohta
+        private static void liigaKüsimus () {
+            Scanner küsimus2 = new Scanner(System.in);
+            System.out.println("Mida liiga kohta teada soovite? Väravalööjad/Jooksjad/Meeskonnad ");
+            String vastus2 = küsimus2.nextLine().toLowerCase();
+            switch (vastus2) {
+                case "väravalööjad":
+                    premiumLiiga.väravalööjad(mängijad);
+                    break;
+                case "jooksjad":
+                    premiumLiiga.jooksjad(mängijad);
+                    break;
+                case "meeskonnad":
+                    System.out.println(premiumLiiga.getKlubid());
+                    break;
+                case "stop":
+                    break; //Lõpetab töö
+                case "stopp":
+                    break; //lõpetab töö
+                default:
+                    break;
+            }
+        }
 
+    public static void setPremiumLiiga(Liiga premiumLiiga) {
+        Peaklass.premiumLiiga = premiumLiiga;
+    }
 }

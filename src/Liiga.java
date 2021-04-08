@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class Liiga {
@@ -18,11 +20,29 @@ public class Liiga {
         klubid.add(klubi);
     }
 
-    public static void väravalööjad(){ //Peab sorteerima kõik premium liiga mängijad väravate põhjal ja väljastama top 10;
-        System.out.println("värav");
+    public static void väravalööjad(List<Mängija> mängijad) { //Peab sorteerima kõik premium liiga mängijad väravate põhjal ja väljastama top 10;
+        Collections.sort(mängijad, new Comparator<Mängija>() {
+            @Override
+            public int compare(Mängija nr1, Mängija nr2) {
+                return nr1.getVäravad() - nr2.getVäravad();
+            }
+        }.reversed());
+        for (int i = 0; i < 10; i++) {
+            Mängija mängija = mängijad.get(i);
+            System.out.println(i + 1 + ". " + mängija.getNimi() + ", väravaid: " + mängija.getVäravad());
+        }
     }
 
-    public static void jooksjad(){ //Peab sorteerima kõik Premium liiga mängijad jooksudistantsi põhjal ja väljastama top10;
-        System.out.println("jooks");
+    public static void jooksjad(List<Mängija> mängijad) { //Peab sorteerima kõik Premium liiga mängijad jooksudistantsi põhjal ja väljastama top10;
+        Collections.sort(mängijad, new Comparator<Mängija>() {
+            @Override
+            public int compare(Mängija nr1, Mängija nr2) {
+                return (int)nr1.getJooks() - (int)nr2.getJooks();
+            }
+        }.reversed());
+        for (int i = 0; i < 10; i++) {
+            Mängija mängija = mängijad.get(i);
+            System.out.println(i + 1 + ". " + mängija.getNimi() + ", keskmiselt joostud km: " + mängija.getJooks());
+        }
     }
 }
