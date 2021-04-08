@@ -206,8 +206,4 @@ public class Peaklass {
                 break;
         }
     }
-
-    public static void setPremiumLiiga(Liiga premiumLiiga) {
-        Peaklass.premiumLiiga = premiumLiiga;
-    }
 }
