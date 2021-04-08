@@ -14,6 +14,12 @@ public abstract class Klubi {
         return mängijad;
     }
 
+    public void getMängijanimed(){ //Väljastab klubi mängijate nimed
+        for (Mängija mängija : mängijad) {
+            System.out.println(mängija.getNimi());
+        }
+    }
+
     public String getAsukoht() {
         return asukoht;
     }

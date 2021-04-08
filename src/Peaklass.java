@@ -86,7 +86,7 @@ public class Peaklass {
         int i = 1;
         while (i == 1) {
             Scanner küsimus1 = new Scanner(System.in);
-            System.out.println("Mille kohta infot soovite? (Liiga/Klubi/Mängija) Kui soovite programmi töö igal hetkel lõpetada, kirjutage stopp ");
+            System.out.println("Mille kohta infot soovite? (Liiga/Klubi/Mängija) Kui soovite programmi töö lõpetada, kirjutage stopp ");
             String vastus1 = küsimus1.nextLine().toLowerCase();
             switch (vastus1) {
                 case "liiga":
@@ -158,7 +158,7 @@ public class Peaklass {
         System.out.println("Mida klubide kohta teada soovid? Asukoht/Mängijad/Mängijate arv ");
         String vastus2 = küsimus2.nextLine().toLowerCase();
         Scanner küsimus3 = new Scanner(System.in);
-        System.out.println("Sisesta klubi nimi, mille kohta infot soovid (flora, paide, levadia, tammeka, kalju, tulevik, legion, trans, kure, kalev) ");
+        System.out.println("Sisesta klubi nimi, mille kohta infot soovid (FC Flora, Paide Linnameeskond, FCI Levadia, JK Tammeka, Nõmme Kalju FC, Viljandi JK Tulevik, JK Legion, JK Narva Trans, FC Kuressaare, JK Tallinna Kalev) ");
         String klubinimi = küsimus3.nextLine().toLowerCase();
         for (Klubi x : premiumLiiga.getKlubid()) { //Võrdleb etteantud nime klubidega ning väärtustab selle
             if (x.getNimi().toLowerCase(Locale.ROOT).equals(klubinimi)) {
@@ -167,7 +167,7 @@ public class Peaklass {
                         System.out.println(x.getAsukoht());
                         break;
                     case "mängijad":
-                        System.out.println(x.getMängijad());
+                        x.getMängijanimed();
                         break;
                     case "mängijate arv":
                         System.out.println(x.getMängijad().size());
@@ -183,29 +183,29 @@ public class Peaklass {
         }
     }
 
-        //Abimeetod, käivitatakse, kui kasutaja soovib infot liiga kohta
-        private static void liigaKüsimus () {
-            Scanner küsimus2 = new Scanner(System.in);
-            System.out.println("Mida liiga kohta teada soovite? Väravalööjad/Jooksjad/Meeskonnad ");
-            String vastus2 = küsimus2.nextLine().toLowerCase();
-            switch (vastus2) {
-                case "väravalööjad":
-                    premiumLiiga.väravalööjad(mängijad);
-                    break;
-                case "jooksjad":
-                    premiumLiiga.jooksjad(mängijad);
-                    break;
-                case "meeskonnad":
-                    System.out.println(premiumLiiga.getKlubid());
-                    break;
-                case "stop":
-                    break; //Lõpetab töö
-                case "stopp":
-                    break; //lõpetab töö
-                default:
-                    break;
-            }
+    //Abimeetod, käivitatakse, kui kasutaja soovib infot liiga kohta
+    private static void liigaKüsimus () {
+        Scanner küsimus2 = new Scanner(System.in);
+        System.out.println("Mida liiga kohta teada soovite? Väravalööjad/Jooksjad/Meeskonnad ");
+        String vastus2 = küsimus2.nextLine().toLowerCase();
+        switch (vastus2) {
+            case "väravalööjad":
+                premiumLiiga.väravalööjad(mängijad);
+                break;
+            case "jooksjad":
+                premiumLiiga.jooksjad(mängijad);
+                break;
+            case "meeskonnad":
+                System.out.println(premiumLiiga.getKlubid());
+                break;
+            case "stop":
+                break; //Lõpetab töö
+            case "stopp":
+                break; //lõpetab töö
+            default:
+                break;
         }
+    }
 
     public static void setPremiumLiiga(Liiga premiumLiiga) {
         Peaklass.premiumLiiga = premiumLiiga;
