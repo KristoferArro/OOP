@@ -5,6 +5,8 @@ public abstract class Klubi {
     private final String nimi;
     private List<Mängija> mängijad;
     private final String asukoht;
+    private int arv;
+
 
     public String getNimi() {
         return nimi;
@@ -12,6 +14,14 @@ public abstract class Klubi {
 
     public List<Mängija> getMängijad() {
         return mängijad;
+    }
+
+    public int getArv(){
+        int arv = 0;
+        for (Mängija mängija : mängijad) {
+            arv++;
+        }
+        return arv;
     }
 
     public String getAsukoht() {

@@ -17,6 +17,26 @@ public class Mängija {
         this.jooks = setJooks(positsioon);
     }
 
+    public String getNimi() {
+        return nimi;
+    }
+
+    public int getVäravad() {
+        return väravad;
+    }
+
+    public double getJooks() {
+        return jooks;
+    }
+
+    public int getSärk() {
+        return särk;
+    }
+
+    public int getVanus() {
+        return vanus;
+    }
+
     public String getKlubi() {
         return klubi;
     }
