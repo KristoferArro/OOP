@@ -1,5 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
 
 public class Peaklass {
@@ -14,11 +16,13 @@ public class Peaklass {
     // Liiga isend (sisaldab listi klubide isenditest)
 
     // Liiga isend ja kõikide mängijate list (asuvad peaklassi alguses, et ei peaks igas meetodis uuesti ette andma)
+    // Samuti luuakse list, kus on kõik mängijad, mille infot tahab kasutaja eraldi tekstifaili
     private static final Liiga premiumLiiga = new Liiga("Premium Liiga");
     private static final List<Mängija> mängijad = new ArrayList<>();
+    private static final List<Mängija> mängijadSalvestamiseks = new ArrayList<>();
 
     public static void loeFail(String failinimi) { //Loeb failist mängijate andmed
-        try (Scanner lugeja = new Scanner(new File (failinimi))) {
+        try (Scanner lugeja = new Scanner(new File(failinimi))) {
             while (lugeja.hasNextLine()) {
                 String rida = lugeja.nextLine();
                 String[] andmed = rida.split(", ");
@@ -81,17 +85,21 @@ public class Peaklass {
         //Peaklassis toimub kasutajaga suhtlus
         // Jooksutame meetodi, mis teeb valmis vajalikud klubid, lisab neisse õiged mängijad ja lisab klubid omakorda liigasse
         teeLiigadKlubid();
+        System.out.println("Tere tulemast kasutama programmi, millega on võimalik vaadata Eesti Jalgpalli kõrgliiga (Premium Liiga) 2020. aasta statistikat!");
+        System.out.println("Uusima uuendusena on võimalik salvestada info valitud mängijate kohta tekstifaili!");
         while (true) {
             Scanner küsimus1 = new Scanner(System.in);
-            System.out.println("Mille kohta infot soovite? (Liiga (L)/Klubi (K)/Mängija (M)) Kui soovite programmi töö lõpetada, kirjutage stopp ");
+            System.out.println("Mille kohta infot soovite? (Liiga (L)/Klubi (K)/Mängija (M)) Soovite hoopis valida mängijaid mille kohta info salvestada (V)? ");
+            System.out.println("Kui soovite programmi töö lõpetada, kirjutage stopp ");
             String vastus1 = küsimus1.nextLine().toLowerCase();
             switch (vastus1) {
                 case "liiga", "l" -> liigaKüsimus();
                 //Esitab liiga kohta küsimused
-                case "klubi", "k"-> klubiKüsimus();
+                case "klubi", "k" -> klubiKüsimus();
                 //Esitab klubi kohta küsimuse
                 case "mängija", "m" -> mängijaKüsimus();
                 //Esitab mängija kohta küsimuse
+                case "v" -> mängijaValik();
                 case "stop" -> System.exit(0);
                 //Lõpetab töö
                 case "stopp" -> System.exit(0);
@@ -102,12 +110,63 @@ public class Peaklass {
         }
     }
 
+    //Abimeetod, käivitatakse, kui kasutaja tahab mängijate infot salvestada tekstifaili
+    private static void mängijaValik() {
+        Scanner lugeja = new Scanner(System.in);
+        String vastus;
+        System.out.println("Kõigepealt sisesta tekstifaili nimi, kuhu soovid, et info salvestatakse! ");
+        System.out.println("Jäta meelde, et kui sellise nimega fail juba eksisteerib, kirjutatakse see üle!");
+        String fNimi = lugeja.nextLine();
+        while (true) {
+            System.out.println("Sisesta järjest mängijate nimed, kelle kohta soovid infot! Kui tahad salvestada ja minna tagasi, kirjuta \"tagasi\"");
+            vastus = lugeja.nextLine();
+            if (vastus.equalsIgnoreCase("tagasi")) {
+                salvestaFaili(fNimi);
+                System.out.println("Mängijate kohta info salvestatud! Suundun tagasi algusesse!");
+                return;
+            }
+            for (Mängija mängija : mängijad) {
+                if (mängija.getNimi().equalsIgnoreCase(vastus)) {
+                    mängijadSalvestamiseks.add(mängija);
+                    System.out.println("Mängija " + mängija.getNimi() + " kohta info salvestatud!");
+                }
+            }
+        }
+
+    }
+
+    private static void salvestaFaili(String failiNimi) {
+        if (mängijadSalvestamiseks.size() == 0) {
+            System.out.println("Valitud pole ühtegi mängijat!");
+            return;
+        } else {
+            System.out.println("Valitud on " + mängijadSalvestamiseks.size() + " mängijat!");
+        }
+
+        String fNimi = failiNimi + ".txt";
+        try (FileWriter out = new FileWriter(fNimi)) {
+            for (Mängija mängija : mängijadSalvestamiseks) {
+                String info = "Nimi: " + mängija.getNimi() +
+                        ", Vanus: " + mängija.getVanus() +
+                        ", Klubi: " + mängija.getKlubi() +
+                        ", Särgi number: " + mängija.getSärk() +
+                        ", Väravaid: " + mängija.getVäravad() +
+                        ", Keskmiselt joostud km: " + mängija.getJooks() +
+                        "\n";
+                out.write(info);
+            }
+        } catch (IOException e) {
+            System.out.println("Salvestamisel tekkis viga! Sulgen programmi!");
+            System.exit(0);
+        }
+    }
+
     //Abimeetod, käivitatakse, kui kasutaja soovib infot mängijate kohta
     private static void mängijaKüsimus() {
         Scanner küsimus2 = new Scanner(System.in);
         String vastus2;
         while (true) {
-            Set<String> vastused = Set.of("k","j", "s", "va", "vä");
+            Set<String> vastused = Set.of("k", "j", "s", "va", "vä");
             System.out.println("Mida mängija kohta teada soovid? Klubi(K)/Keskmiselt mängus joostud km(J)/Särginumber(S)/Vanus(Va)/Väravad(Vä)");
             vastus2 = küsimus2.nextLine().toLowerCase();
             if (vastus2.equals("tagasi"))
@@ -186,7 +245,7 @@ public class Peaklass {
     }
 
     //Abimeetod, käivitatakse, kui kasutaja soovib infot liiga kohta
-    private static void liigaKüsimus () {
+    private static void liigaKüsimus() {
         Scanner küsimus2 = new Scanner(System.in);
         String vastus2;
         Set<String> vastused = Set.of("v", "j", "m", "väravalööjad", "meeskonnad");
