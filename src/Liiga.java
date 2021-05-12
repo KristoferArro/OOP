@@ -27,6 +27,7 @@ public class Liiga {
                 return nr1.getVäravad() - nr2.getVäravad();
             }
         }.reversed());
+        System.out.println("TOP 10 kõige rohkem väravaid löönud mängijad: ");
         for (int i = 0; i < 10; i++) {
             Mängija mängija = mängijad.get(i);
             System.out.println(i + 1 + ". " + mängija.getNimi() + ", väravaid: " + mängija.getVäravad());
@@ -40,6 +41,7 @@ public class Liiga {
                 return (int)nr1.getJooks() - (int)nr2.getJooks();
             }
         }.reversed());
+        System.out.println("TOP 10 kõige rohkem jooksnud mängijad (keskmiselt ühe mängu kohta): ");
         for (int i = 0; i < 10; i++) {
             Mängija mängija = mängijad.get(i);
             System.out.println(i + 1 + ". " + mängija.getNimi() + ", keskmiselt joostud km: " + mängija.getJooks());

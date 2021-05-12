@@ -1,8 +1,6 @@
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.Scanner;
+import java.io.FileNotFoundException;
+import java.util.*;
 
 public class Peaklass {
     // Küsib kasutajalt mida teha? (Vaata mängijate infot/ vaata liiga infot)
@@ -15,23 +13,25 @@ public class Peaklass {
     // Klubide isendid (sisaldab endas listi mängijate isenditest, kes seal klubis mängivad)
     // Liiga isend (sisaldab listi klubide isenditest)
 
-    // Liiga isend
-    private static Liiga premiumLiiga;
-    private static List<Mängija> mängijad = new ArrayList<>();
+    // Liiga isend ja kõikide mängijate list (asuvad peaklassi alguses, et ei peaks igas meetodis uuesti ette andma)
+    private static final Liiga premiumLiiga = new Liiga("Premium Liiga");
+    private static final List<Mängija> mängijad = new ArrayList<>();
 
-    public static List<Mängija> loeFail(String failinimi) throws Exception { //Loeb failist mängijate andmed
-        File objekt = new File(failinimi);
-        Scanner lugeja = new Scanner(objekt);
-        while (lugeja.hasNextLine()) {
-            String rida = lugeja.nextLine();
-            String[] andmed = rida.split(", ");
-            Mängija mängija = new Mängija(andmed[0], Integer.parseInt(andmed[1]), andmed[2], andmed[3], Integer.parseInt(andmed[4]), Integer.parseInt(andmed[5])); //Loob uue mängija
-            mängijad.add(mängija); //Lisab mängija mängijate järjendisse
+    public static void loeFail(String failinimi) { //Loeb failist mängijate andmed
+        try (Scanner lugeja = new Scanner(new File (failinimi))) {
+            while (lugeja.hasNextLine()) {
+                String rida = lugeja.nextLine();
+                String[] andmed = rida.split(", ");
+                Mängija mängija = new Mängija(andmed[0], Integer.parseInt(andmed[1]), andmed[2], andmed[3], Integer.parseInt(andmed[4]), Integer.parseInt(andmed[5])); //Loob uue mängija
+                mängijad.add(mängija); //Lisab mängija mängijate järjendisse
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Mängijate faili ei leitud! Kontakteeru programmi tootjatega! LÕPETAN TÖÖ!");
+            System.exit(0);
         }
-        return mängijad;
     }
-    //Mängijate järjendi põhjal saab luua klubid
 
+    //Mängijate järjendi põhjal saab täita klubid õigete mängijatega
     // Võrdleme iga mängija klubi liigas olevate klubidega, seejärel paneme mängija õige klubi alla
     public static void loeKlubisse(List<Mängija> mängijad, List<Klubi> klubid) {
         for (Mängija mängija : mängijad) {
@@ -44,7 +44,7 @@ public class Peaklass {
         }
     }
 
-    public static void teeLiigadKlubid() throws Exception {
+    public static void teeLiigadKlubid() {
         // Klubide isendid
         Klubi flora = new TallinnaKlubi("FC Flora", "Tallinn", "Kristiine");
         Klubi paide = new MuuKlubi("Paide linnameeskond", "Paide");
@@ -60,10 +60,7 @@ public class Peaklass {
         // Loeme mängijad failist
         loeFail("mängijad.txt");
 
-        //Loome Premium Liiga
-        Liiga premiumLiiga = new Liiga("Premium liiga");
-
-        // Loeme klubid liigasse
+        // Lisame klubid liigasse
         premiumLiiga.lisaKlubi(flora);
         premiumLiiga.lisaKlubi(paide);
         premiumLiiga.lisaKlubi(levadia);
@@ -76,132 +73,143 @@ public class Peaklass {
         premiumLiiga.lisaKlubi(kalev);
 
         // Jagame mängijad klubidesse
-        loeKlubisse(mängijad, premiumLiiga.getKlubid());
+        loeKlubisse(mängijad, Liiga.getKlubid());
 
     }
 
-    public static void main(String[] args) throws Exception {
-        //Peaklassis toimud kasutajaga suhtlus
+    public static void main(String[] args) {
+        //Peaklassis toimub kasutajaga suhtlus
+        // Jooksutame meetodi, mis teeb valmis vajalikud klubid, lisab neisse õiged mängijad ja lisab klubid omakorda liigasse
         teeLiigadKlubid();
-        int i = 1;
-        while (i == 1) {
+        while (true) {
             Scanner küsimus1 = new Scanner(System.in);
-            System.out.println("Mille kohta infot soovite? (Liiga/Klubi/Mängija) Kui soovite programmi töö lõpetada, kirjutage stopp ");
+            System.out.println("Mille kohta infot soovite? (Liiga (L)/Klubi (K)/Mängija (M)) Kui soovite programmi töö lõpetada, kirjutage stopp ");
             String vastus1 = küsimus1.nextLine().toLowerCase();
             switch (vastus1) {
-                case "liiga":
-                    liigaKüsimus();
-                    break;
+                case "liiga", "l" -> liigaKüsimus();
                 //Esitab liiga kohta küsimused
-                case "klubi":
-                    klubiKüsimus();
-                    break;
+                case "klubi", "k"-> klubiKüsimus();
                 //Esitab klubi kohta küsimuse
-                case "mängija":
-                    mängijaKüsimus();
-                    break;
+                case "mängija", "m" -> mängijaKüsimus();
                 //Esitab mängija kohta küsimuse
-                case "stop":
-                    i = 0;
-                    break; //Lõpetab töö
-                case "stopp":
-                    i = 0;
-                    break; //lõpetab töö
-                default:
-                    System.out.println("Vigane sisend! Proovi uuesti!");
-                    break;
+                case "stop" -> System.exit(0);
+                //Lõpetab töö
+                case "stopp" -> System.exit(0);
+                //lõpetab töö
+                default -> System.out.println("Vigane sisend! Proovi uuesti!");
+                //Teavitab kasutajat vigasest sisendist ja laseb uuesti proovida
             }
         }
     }
 
-    //Abimeetod, käivitatakse, kui kasutaja soovid infot mängijate kohta
+    //Abimeetod, käivitatakse, kui kasutaja soovib infot mängijate kohta
     private static void mängijaKüsimus() {
         Scanner küsimus2 = new Scanner(System.in);
-        System.out.println("Mida mängija kohta teada soovid? Klubi/Jooks/Särginumber/Vanus/Väravad");
-        String vastus2 = küsimus2.nextLine().toLowerCase();
+        String vastus2;
+        while (true) {
+            Set<String> vastused = Set.of("k","j", "s", "va", "vä");
+            System.out.println("Mida mängija kohta teada soovid? Klubi(K)/Keskmiselt mängus joostud km(J)/Särginumber(S)/Vanus(Va)/Väravad(Vä)");
+            vastus2 = küsimus2.nextLine().toLowerCase();
+            if (vastus2.equals("tagasi"))
+                return;
+            else if (vastused.contains(vastus2))
+                break;
+            else
+                System.out.println("Vigane sisend! Proovi uuesti! Kui tahad tagasi minna, kirjuta \"tagasi\"");
+        }
         Scanner küsimus3 = new Scanner(System.in);
         System.out.println("Sisesta mängija täisnimi, kelle kohta infot soovid (nt: Mihkel Järviste): ");
         String mängijanimi = küsimus3.nextLine().toLowerCase();
         for (Mängija x : mängijad) { //Võrdleb etteantud mängijanime meie mängijate listiga
-            if (x.getNimi().toLowerCase().equals(mängijanimi)) {
+            if (x.getNimi().equalsIgnoreCase(mängijanimi)) {
                 switch (vastus2) {
-                    case "klubi":
+                    case "k":
                         System.out.println(x.getKlubi());
-                        break;
-                    case "jooks":
+                        return;
+                    case "j":
                         System.out.println(x.getJooks());
-                        break;
-                    case "särginumber":
+                        return;
+                    case "s":
                         System.out.println(x.getSärk());
-                        break;
-                    case "vanus":
+                        return;
+                    case "va":
                         System.out.println(x.getVanus());
-                        break;
-                    case "väravad":
+                        return;
+                    case "vä":
                         System.out.println(x.getVäravad());
-                        break;
-                    case "stop":
-                        break;
-                    case "stopp":
-                        break;
+                        return;
                     default:
-                        System.out.println("Vigane sisend!");
-                        break;
-                }
-            }
+                        return;
+                } //switch
+            } //if
         }
+        System.out.println("Sellist mängijat ei leitud, liigun tagasi algusesse!");
     }
 
-    //Abimeetod, käivitatakse, kui kasutaja soovid infot klubide kohta
+    //Abimeetod, käivitatakse, kui kasutaja soovib infot klubide kohta
     private static void klubiKüsimus() {
         Scanner küsimus2 = new Scanner(System.in);
-        System.out.println("Mida klubide kohta teada soovid? Asukoht/Mängijad/Mängijate arv ");
-        String vastus2 = küsimus2.nextLine().toLowerCase();
+        String vastus2;
+        while (true) {
+            Set<String> vastused = Set.of("asukoht", "mängijad", "mängijate arv");
+            System.out.println("Mida klubide kohta teada soovid? Asukoht/Mängijad/Mängijate arv ");
+            vastus2 = küsimus2.nextLine().toLowerCase();
+            if (vastus2.equals("tagasi"))
+                return;
+            else if (vastused.contains(vastus2))
+                break;
+            else
+                System.out.println("Vigane sisend! Proovi uuesti! Kui tahad tagasi minna, kirjuta \"tagasi\"");
+        }
+
         Scanner küsimus3 = new Scanner(System.in);
         System.out.println("Sisesta klubi nimi, mille kohta infot soovid (FC Flora, Paide Linnameeskond, FCI Levadia, JK Tammeka, Nõmme Kalju FC, Viljandi JK Tulevik, JK Legion, JK Narva Trans, FC Kuressaare, JK Tallinna Kalev) ");
         String klubinimi = küsimus3.nextLine().toLowerCase();
-        for (Klubi x : premiumLiiga.getKlubid()) { //Võrdleb etteantud nime klubidega ning väärtustab selle
-            if (x.getNimi().toLowerCase(Locale.ROOT).equals(klubinimi)) {
+        for (Klubi x : Liiga.getKlubid()) { //Võrdleb etteantud nime klubidega ning väärtustab selle
+            if (x.getNimi().equalsIgnoreCase(klubinimi)) {
                 switch (vastus2) {
                     case "asukoht":
                         System.out.println(x.getAsukoht());
-                        break;
+                        return;
                     case "mängijad":
                         x.getMängijanimed();
-                        break;
+                        return;
                     case "mängijate arv":
                         System.out.println(x.getMängijad().size());
-                        break;
-                    case "stop":
-                        break;
-                    case "stopp":
-                        break;
+                        return;
                     default:
-                        System.out.println("Vigane sisend! Proovi uuesti!");
+                        return;
                 }
             }
         }
+        System.out.println("Sellist klubi ei leitud, liigun tagasi algusesse!");
     }
 
     //Abimeetod, käivitatakse, kui kasutaja soovib infot liiga kohta
     private static void liigaKüsimus () {
         Scanner küsimus2 = new Scanner(System.in);
-        System.out.println("Mida liiga kohta teada soovite? Väravalööjad/Jooksjad/Meeskonnad ");
-        String vastus2 = küsimus2.nextLine().toLowerCase();
+        String vastus2;
+        Set<String> vastused = Set.of("v", "j", "m", "väravalööjad", "meeskonnad");
+        while (true) {
+            System.out.println("Mida liiga kohta teada soovite? Väravalööjad (V)/Kõige rohkem jooksnud mängijad (J)/ Meeskonnad (M)");
+            vastus2 = küsimus2.nextLine().toLowerCase();
+            if (vastus2.equals("tagasi"))
+                return;
+            else if (vastused.contains(vastus2))
+                break;
+            else
+                System.out.println("Vigane sisend! Proovi uuesti! Kui tahad tagasi minna, kirjuta \"tagasi\"");
+        }
         switch (vastus2) {
-            case "väravalööjad":
-                premiumLiiga.väravalööjad(mängijad);
+            case "v", "väravalööjad":
+                Liiga.väravalööjad(mängijad);
                 break;
-            case "jooksjad":
-                premiumLiiga.jooksjad(mängijad);
+            case "j":
+                Liiga.jooksjad(mängijad);
                 break;
-            case "meeskonnad":
-                System.out.println(premiumLiiga.getKlubid());
+            case "m", "meeskonnad":
+                System.out.println(Liiga.getKlubid());
                 break;
-            case "stop":
-                break; //Lõpetab töö
-            case "stopp":
-                break; //lõpetab töö
             default:
                 break;
         }
